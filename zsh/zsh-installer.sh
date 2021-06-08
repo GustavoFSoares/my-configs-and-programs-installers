@@ -22,5 +22,4 @@ plugins=(
 )
 '
 
-exec "cat ./zsh/.p10k.zsh.config > ~/.10k.zsh"
 chsh -s $(which zsh)

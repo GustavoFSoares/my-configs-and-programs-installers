@@ -35,17 +35,17 @@ sudo apt-get install curl -y
 # Terminal=False" > ~/.local/share/applications/hercules.desktop
 
 # Download Spotfy
-curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
 echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update && sudo apt-get install spotify-client
+sudo apt-get update && sudo apt-get install spotify-client -y
 
 # Install MySQL
-wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
-sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+# wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
+# sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
 
-wget https://downloads.mysql.com/archives/get/file/mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb
-sudo apt install -fy
-sudo dpkg -i mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb
+# wget https://downloads.mysql.com/archives/get/file/mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb
+# sudo apt install -fy
+# sudo dpkg -i mysql-workbench-community_8.0.16-1ubuntu18.04_amd64.deb
 
 # Fixar Dock
 # Acessar: https://extensions.gnome.org/extension/307/dash-to-dock/
@@ -73,45 +73,48 @@ Terminal=False" > ~/.local/share/applications/robo3t.desktop
 # dpkg -i jdk-11.0.5_linux-x64_bin.deb
 
 # Install Oracle SqlDeveloper
-echo "DOWNLOAD Sqldeveloper ON 'https://www.oracle.com/br/tools/downloads/sqldev-v192-downloads.html'"
-sudo apt install rpm install alien dpkg-dev debhelper build-essential
-sudo alien sqldeveloper-19.2.1.247.2212.noarch.rpm
-sudo dpkg -i sqldeveloper_19.2.1-248.2212_all.deb
-echo "RUN sqldeveloper and type your Java JDK in /usr/lib/jvm"
-sqldeveloper
-sudo wget https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Oracle_SQL_Developer_logo.svg/1200px-Oracle_SQL_Developer_logo.svg.png -O /opt/sqldeveloper/icon-deb.png
+# echo "DOWNLOAD Sqldeveloper ON 'https://www.oracle.com/br/tools/downloads/sqldev-v192-downloads.html'"
+# sudo apt install rpm install alien dpkg-dev debhelper build-essential
+# sudo alien sqldeveloper-19.2.1.247.2212.noarch.rpm
+# sudo dpkg -i sqldeveloper_19.2.1-248.2212_all.deb
+# echo "RUN sqldeveloper and type your Java JDK in /usr/lib/jvm"
+# sqldeveloper
+# sudo wget https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Oracle_SQL_Developer_logo.svg/1200px-Oracle_SQL_Developer_logo.svg.png -O /opt/sqldeveloper/icon-deb.png
 
-echo "DOWNLOAD Oracle Instant Client ON 'https://www.oracle.com/br/database/technologies/instant-client/linux-x86-64-downloads.html'"
-sudo alien oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
-sudo dpkg -i oracle-instantclient19.5-basic_19.5.0.0.0-2_amd64.deb
+# echo "DOWNLOAD Oracle Instant Client ON 'https://www.oracle.com/br/database/technologies/instant-client/linux-x86-64-downloads.html'"
+# sudo alien oracle-instantclient19.5-basic-19.5.0.0.0-1.x86_64.rpm
+# sudo dpkg -i oracle-instantclient19.5-basic_19.5.0.0.0-2_amd64.deb
 
-sudo echo "
-[Desktop Entry]
-Type=Application
-Name=Oracle SqlDeveloper
-Exec=sqldeveloper
-Icon=/opt/sqldeveloper/icon-deb.png
-Terminal=False" > ~/.local/share/applications/sqldeveloper.desktop
+# sudo echo "
+# [Desktop Entry]
+# Type=Application
+# Name=Oracle SqlDeveloper
+# Exec=sqldeveloper
+# Icon=/opt/sqldeveloper/icon-deb.png
+# Terminal=False" > ~/.local/share/applications/sqldeveloper.desktop
 
 # Install Docker
 sudo apt update
-sudo apt install apt-transport-https ca-certificates curl gnupg2 software-properties-common
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
+sudo apt-get remove docker docker-engine docker.io containerd runc
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt update
 apt-cache policy docker-ce
-sudo apt install docker-ce
-echo "Verificar se sistema estรก rodando"
-sudo systemctl status docker
+sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+# echo "Verificar se sistema estรก rodando"
+# sudo systemctl status docker
 
 echo "Para adicionar docker ao sudoers"
+sudo groupadd docker
 sudo usermod -aG docker ${USER}
-su - ${USER}
-id -nG
+newgrp docker
+# id -nG
 echo "E verifique se foi adicionao ao grupo docker"
 
 echo "Adicionar Docker-componse"
-sudo curl -L https://github.com/docker/compose/releases/download/1.22.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 docker-compose --version
 
@@ -120,9 +123,15 @@ echo "Adicionando Fira-Code"
 sudo apt install fonts-firacode -y
 
 echo "Adicionando Nerd-Fonts"
-curl -fLo "~/.local/share/fonts/Hurmit Medium Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
-curl -fLo "~/.local/share/fonts/Droid Sans Mono for Powerline Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-curl -fLo "~/.local/share/fonts/Hurmit Medium Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
+curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
+curl -fLo "~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
+
+mkdir ~/.local/share/fonts
+curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf
+curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
+sudo fc-cache -fv
+
 
 # Install ZSH
 echo "Instalando ZSH"
