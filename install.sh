@@ -22,6 +22,7 @@ sudo npm i yarn -g
 
 # Install CURL
 sudo apt-get install curl -y
+sudo apt-get install wget -y
 
 # Download Hercules
 # sudo mkdir /win/
@@ -35,9 +36,9 @@ sudo apt-get install curl -y
 # Terminal=False" > ~/.local/share/applications/hercules.desktop
 
 # Download Spotfy
-curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-sudo apt-get update && sudo apt-get install spotify-client -y
+# curl -sS https://download.spotify.com/debian/pubkey_0D811D58.gpg | sudo apt-key add - 
+# echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+# sudo apt-get update && sudo apt-get install spotify-client -y
 
 # Install MySQL
 # wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb
@@ -53,7 +54,7 @@ sudo apt-get update && sudo apt-get install spotify-client -y
 # Install Robo3t
 sudo mkdir /usr/bin/robo3t
 sudo wget https://download-test.robomongo.org/linux/robo3t-1.3.1-linux-x86_64-7419c406.tar.gz -O /usr/bin/robo3t/robo3t.tar.gz
-sudo wget https://spotfolio.com/wp-content/uploads/2017/03/robomongo-1024x1024-bfaf4052.png -O /usr/bin/robo3t/icon.png
+sudo wget https://dashboard.snapcraft.io/site_media/appmedia/2018/09/logo-256x256.png -O /usr/bin/robo3t/icon.png
 sudo tar -zxvf /usr/bin/robo3t/robo3t.tar.gz -C /usr/bin/robo3t
 sudo mv /usr/bin/robo3t/robo3t-1.3.1-linux-x86_64-7419c406/* /usr/bin/robo3t
 sudo rm -rf /usr/bin/robo3t/robo3t-1.3.1-linux-x86_64-7419c406
@@ -94,48 +95,48 @@ Terminal=False" > ~/.local/share/applications/robo3t.desktop
 # Terminal=False" > ~/.local/share/applications/sqldeveloper.desktop
 
 # Install Docker
-sudo apt update
-sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
-sudo apt-get remove docker docker-engine docker.io containerd runc
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-apt-cache policy docker-ce
-sudo apt-get install docker-ce docker-ce-cli containerd.io -y
-# echo "Verificar se sistema estรก rodando"
-# sudo systemctl status docker
+# sudo apt update
+# sudo apt-get install apt-transport-https ca-certificates curl gnupg lsb-release -y
+# sudo apt-get remove docker docker-engine docker.io containerd runc
+# curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+# echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+#   $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+# sudo apt update
+# apt-cache policy docker-ce
+# sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+# # echo "Verificar se sistema estรก rodando"
+# # sudo systemctl status docker
 
-echo "Para adicionar docker ao sudoers"
-sudo groupadd docker
-sudo usermod -aG docker ${USER}
-newgrp docker
-# id -nG
-echo "E verifique se foi adicionao ao grupo docker"
+# echo "Para adicionar docker ao sudoers"
+# sudo groupadd docker
+# sudo usermod -aG docker ${USER}
+# newgrp docker
+# # id -nG
+# echo "E verifique se foi adicionao ao grupo docker"
 
-echo "Adicionar Docker-componse"
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-docker-compose --version
+# echo "Adicionar Docker-componse"
+# sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# sudo chmod +x /usr/local/bin/docker-compose
+# docker-compose --version
 
-# Install Fonts
-echo "Adicionando Fira-Code"
-sudo apt install fonts-firacode -y
+# # Install Fonts
+# echo "Adicionando Fira-Code"
+# sudo apt install fonts-firacode -y
 
-echo "Adicionando Nerd-Fonts"
-curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
-curl -fLo "~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
-curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
+# echo "Adicionando Nerd-Fonts"
+# curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/blob/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
+# curl -fLo "~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf
+# curl -fLo "~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf
 
-mkdir ~/.local/share/fonts
-curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf
-curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
-sudo fc-cache -fv
+# mkdir ~/.local/share/fonts
+# curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/Hermit/Medium/complete/Hurmit%20Medium%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Hurmit\ Medium\ Nerd\ Font\ Complete.otf
+# curl https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/DroidSansMono/complete/Droid%20Sans%20Mono%20Nerd%20Font%20Complete.otf > ~/.local/share/fonts/Droid\ Sans\ Mono\ for\ Powerline\ Nerd\ Font\ Complete.otf
+# sudo fc-cache -fv
 
 
 # Install ZSH
-echo "Instalando ZSH"
-sh ./zsh/zsh-installer.sh
+# echo "Instalando ZSH"
+# sh ./zsh/zsh-installer.sh
 
 # Config git user
 echo "Configurando GIT"
